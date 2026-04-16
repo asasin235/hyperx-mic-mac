@@ -31,6 +31,11 @@ try {
 
 const HYPERX_VENDOR_ID = 0x0951;
 
+// Clamp a value between min and max (inclusive)
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
 // Opened HID devices, keyed by "vendorId:productId:path"
 const openDevices = new Map();
 
@@ -192,7 +197,7 @@ function setRGB(r, g, b, effect, speed) {
     r & 0xFF,      // Red
     g & 0xFF,      // Green
     b & 0xFF,      // Blue
-    Math.round(Math.max(0, Math.min(100, speed))), // Speed
+    Math.round(clamp(speed, 0, 100)), // Speed
     ...new Array(57).fill(0x00), // Padding to 64 bytes total
   ];
 

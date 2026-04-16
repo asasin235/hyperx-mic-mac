@@ -22,10 +22,8 @@ mac:
         - x64
   icon: assets/icon.icns
   minimumSystemVersion: "13.0"
-  hardenedRuntime: true
+  hardenedRuntime: false
   gatekeeperAssess: false
-  entitlements: build/entitlements.mac.plist
-  entitlementsInherit: build/entitlements.mac.plist
 
 dmg:
   title: DuoCast Control

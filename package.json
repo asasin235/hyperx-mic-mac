@@ -50,9 +50,7 @@
         }
       ],
       "icon": "assets/icon.icns",
-      "minimumSystemVersion": "13.0",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false
+      "minimumSystemVersion": "13.0"
     },
     "dmg": {
       "title": "DuoCast Control",
