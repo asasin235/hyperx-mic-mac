@@ -1,0 +1,65 @@
+{
+  "name": "duocast-control",
+  "version": "1.0.0",
+  "description": "Native macOS menu bar app to control the HyperX DuoCast USB microphone",
+  "license": "MIT",
+  "author": "DuoCast Control Contributors",
+  "main": "src/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && ELECTRON_IS_DEV=1 electron .\"",
+    "build:renderer": "vite build",
+    "build": "npm run build:renderer && electron-builder --mac",
+    "build:dmg": "npm run build",
+    "postinstall": "electron-rebuild -f -w node-hid"
+  },
+  "dependencies": {
+    "naudiodon": "^2.0.0",
+    "node-hid": "^3.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^41.2.1",
+    "electron-builder": "^24.13.3",
+    "electron-rebuild": "^3.2.9",
+    "vite": "^5.4.0",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.duocast.control",
+    "productName": "DuoCast Control",
+    "copyright": "Copyright © 2024",
+    "files": [
+      "src/main/**",
+      "src/preload.js",
+      "dist/renderer/**",
+      "assets/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/",
+        "to": "assets/"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["arm64", "x64"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "minimumSystemVersion": "13.0"
+    },
+    "dmg": {
+      "title": "DuoCast Control",
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "nativeRebuilder": "electron-rebuild",
+    "npmRebuild": true
+  }
+}
